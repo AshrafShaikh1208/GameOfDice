@@ -3,20 +3,18 @@ namespace diceGameNew.src.diceGame
 {
     public interface gameInterface
     {
-        void displayGameMenue();
+        void DisplayGameMenue();
 
-        void displayGameInstruction();
+        void DisplayGameInstruction();
 
-        void selectGameOption(int optionSelected);
+        void SelectGameOption(int optionSelected);
 
-        void startNewGame();
+        void StartNewGame();
 
-        void playOneRound(player player, out int roll);
+        void PlayOneRound(player player, out int roll);
 
-        void whoIsLeading();
+        void WhoIsLeading();
 
-        void checkIfAnyoneHasWon(int index);
-
-       
+        void CheckIfAnyoneHasWon(int index);
     }
 }
