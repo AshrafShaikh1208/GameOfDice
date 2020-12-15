@@ -7,10 +7,15 @@ namespace diceGameNew.src.diceGame
 
         public int roll()
         {
+            int result = 0;
+            try
+            {
+                Random randomNumberGenerator = new Random();
+                result = randomNumberGenerator.Next(numberOfSides) + 1;
+            }
+            catch (Exception ex)
+            { Console.WriteLine("Error !!!" + ex.ToString()); }
 
-            int result;
-            Random randomNumberGenerator = new Random();
-            result = randomNumberGenerator.Next(numberOfSides) + 1;
             return result;
         }
 
