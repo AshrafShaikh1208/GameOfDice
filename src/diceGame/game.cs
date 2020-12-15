@@ -6,18 +6,18 @@ using System.Data;
 
 namespace diceGameNew.src.diceGame
 {
-    public class game : gameInterface
+    public class Game : IGameInterface
     {
-        private dice dice;
+        private Dice dice;
         private int scoreToWin;
-        List<string> Result = new List<string>();
-        private List<player> objPlayers = new List<player>();
-        Dictionary<string, int> checkForFoul = new Dictionary<string, int>();
+        private List<string> Result = new List<string>();
+        private List<Player> objPlayers = new List<Player>();
+        private Dictionary<string, int> checkForFoul = new Dictionary<string, int>();
         private DataTable products;
         private DataTable finalTable;
-        int index;
+        private static int index;
 
-        public game()
+        public Game()
         {
             Console.Clear();
         }
@@ -64,10 +64,7 @@ namespace diceGameNew.src.diceGame
         {
             try
             {
-                int numberOfPlayers;
-                dice = new dice();
-                checkForFoul.Clear();
-                objPlayers.Clear();
+                int numberOfPlayers; dice = new Dice(); checkForFoul.Clear(); objPlayers.Clear();
 
                 finalTable = new DataTable();
                 finalTable.TableName = "Result";
@@ -77,12 +74,12 @@ namespace diceGameNew.src.diceGame
 
                 Console.WriteLine("Please enter number of players");
                 string input = Console.ReadLine();
-                bool parseSucess = worker.checkInputInteger(input, out numberOfPlayers);
+                bool parseSucess = Worker.CheckInputInteger(input, out numberOfPlayers);
 
                 Console.WriteLine("Please enter the maximum score required to win");
 
                 input = Console.ReadLine();
-                parseSucess = worker.checkInputInteger(input, out scoreToWin);
+                parseSucess = Worker.CheckInputInteger(input, out scoreToWin);
 
                 // Generate random numer to decide who plays first
                 Random randomNumberGenerator = new Random();
@@ -90,7 +87,7 @@ namespace diceGameNew.src.diceGame
 
                 for (int i = 1; i <= numberOfPlayers; i++)
                 {
-                    objPlayers.Add(new player("Player-" + i.ToString()));
+                    objPlayers.Add(new Player("Player-" + i.ToString()));
 
                     checkForFoul.Add("Player-" + i.ToString(), 0);
                 }
@@ -98,22 +95,22 @@ namespace diceGameNew.src.diceGame
                 while (true)
                 {
                     string strPlayer = "Player-" + result.ToString();
-                    index = objPlayers.IndexOf(objPlayers.Where(p => p.getName() == strPlayer).FirstOrDefault());
+                    index = objPlayers.IndexOf(objPlayers.Where(p => p.GetName() == strPlayer).FirstOrDefault());
                     bool allowRoll = true;
 
                     // check for skipping the roll if the user has rolled 1 consecutively times
-                    if (checkForFoul.ContainsKey(objPlayers[index].getName()) && checkForFoul[objPlayers[index].getName()] == 2)
+                    if (checkForFoul.ContainsKey(objPlayers[index].GetName()) && checkForFoul[objPlayers[index].GetName()] == 2)
                     {
-                        Console.WriteLine(objPlayers[index].getName() + " you missed this chance as you rolled 1 twice consicatively");
+                        Console.WriteLine(objPlayers[index].GetName() + " you missed this chance as you rolled 1 twice consicatively");
                         checkForFoul[strPlayer] = 0;
                         allowRoll = false;
                     }
 
                     // check for skipping the roll of the user who has already won
-                    if (objPlayers[index].getTotalScore() == scoreToWin)
+                    if (objPlayers[index].GetTotalScore() == scoreToWin)
                     {
-                        if (!Result.Contains(objPlayers[index].getName().ToString()))
-                            Result.Add(objPlayers[index].getName());
+                        if (!Result.Contains(objPlayers[index].GetName().ToString()))
+                            Result.Add(objPlayers[index].GetName());
 
                         if (Result.Count == objPlayers.Count)
                         {
@@ -129,7 +126,7 @@ namespace diceGameNew.src.diceGame
                     {
                         Console.WriteLine(strPlayer + " its your turn (press ‘r’ to roll the dice)");
                         input = Console.ReadLine();
-                        worker.checkInputString(input, out input);
+                        Worker.CheckInputString(input, out input);
 
                         int rollScore;
                         PlayOneRound(objPlayers[index], out rollScore);
@@ -139,9 +136,9 @@ namespace diceGameNew.src.diceGame
                         // Check to give use one more roll if he scores 6
                         while (rollScore == 6)
                         {
-                            Console.WriteLine(objPlayers[index].getName() + " you won one more chance to roll as you scored 6 (press ‘r’ to roll the dice again)");
+                            Console.WriteLine(objPlayers[index].GetName() + " you won one more chance to roll as you scored 6 (press ‘r’ to roll the dice again)");
                             input = Console.ReadLine();
-                            worker.checkInputString(input, out input);
+                            Worker.CheckInputString(input, out input);
                             PlayOneRound(objPlayers[index], out rollScore);
                             CheckIfAnyoneHasWon(index);
                             WhoIsLeading();
@@ -155,7 +152,7 @@ namespace diceGameNew.src.diceGame
 
                             if (checkForFoul[strPlayer] == 2)
                             {
-                                Console.WriteLine(objPlayers[index].getName() + " rolled 1 twice consicatively as misses the next roll");
+                                Console.WriteLine(objPlayers[index].GetName() + " rolled 1 twice consicatively as misses the next roll");
                             }
                         }
                         else
@@ -175,23 +172,23 @@ namespace diceGameNew.src.diceGame
         }
 
         // Function to roll the dice
-        public void PlayOneRound(player player, out int roll)
+        public void PlayOneRound(Player player, out int roll)
         {
-            int diceRoll = dice.roll();
+            int diceRoll = dice.Roll();
             roll = diceRoll;
             try
             {
-                int totalScore = player.getTotalScore();
+                int totalScore = player.GetTotalScore();
 
                 // Check if the total is greater the score to win
                 if ((totalScore + diceRoll) > scoreToWin)
                 {
-                    Console.WriteLine(player.getName() + " scored " + diceRoll + ". Require " + (scoreToWin - totalScore) + " score to win");
+                    Console.WriteLine(player.GetName() + " scored " + diceRoll + ". Require " + (scoreToWin - totalScore) + " score to win");
                 }
                 else
                 {
-                    player.setTotalScore(diceRoll);
-                    Console.WriteLine(player.getName() + " rolled dice, and scored " + diceRoll + " points, for a total of " + player.getTotalScore() + " points");
+                    player.SetTotalScore(diceRoll);
+                    Console.WriteLine(player.GetName() + " rolled dice, and scored " + diceRoll + " points, for a total of " + player.GetTotalScore() + " points");
                 }
             }
             catch (Exception ex)
@@ -260,8 +257,8 @@ namespace diceGameNew.src.diceGame
                         DataRow newRow = products.NewRow();
                         //arrscore[0] = Convert.ToInt32(vPlayer.getTotalScore());
                         newRow["Rank"] = lastRank;
-                        newRow["Name"] = vPlayer.getName();
-                        newRow["Score"] = Convert.ToInt32(vPlayer.getTotalScore());
+                        newRow["Name"] = vPlayer.GetName();
+                        newRow["Score"] = Convert.ToInt32(vPlayer.GetTotalScore());
 
                         products.Rows.Add(newRow);
                         lastRank++;
@@ -309,7 +306,7 @@ namespace diceGameNew.src.diceGame
             {
                 if (scoreToWin != 0)
                 {
-                    if (objPlayers[index].getTotalScore() == scoreToWin)
+                    if (objPlayers[index].GetTotalScore() == scoreToWin)
                     {
                         DataRow newRow = finalTable.NewRow();
                         if (finalTable.Rows.Count == 0)
@@ -317,12 +314,12 @@ namespace diceGameNew.src.diceGame
                         else
                             newRow["Rank"] = finalTable.Rows.Count + 1;
 
-                        newRow["Name"] = objPlayers[index].getName();
-                        newRow["Score"] = Convert.ToInt32(objPlayers[index].getTotalScore());
+                        newRow["Name"] = objPlayers[index].GetName();
+                        newRow["Score"] = Convert.ToInt32(objPlayers[index].GetTotalScore());
 
                         finalTable.Rows.Add(newRow);
 
-                        Console.WriteLine(objPlayers[index].getName() + " Won!!!");
+                        Console.WriteLine(objPlayers[index].GetName() + " Won!!!");
                     }
                 }
                 else
