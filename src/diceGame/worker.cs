@@ -16,7 +16,7 @@ namespace diceGameNew.src.diceGame
 
                 while (true)
                 {
-                    game.displayGameMenue();
+                    game.DisplayGameMenue();
                     string optionSelected = Console.ReadLine();
 
                     int option;
@@ -27,14 +27,14 @@ namespace diceGameNew.src.diceGame
                     {
 
                         Console.WriteLine("Option entered invalid, please enter a number from 1 to 3: ");
-                        game.displayGameMenue();
+                        game.DisplayGameMenue();
                         optionSelected = Console.ReadLine();
                         parseSucess = checkInputInteger(optionSelected, out option);
                     }
 
                     if (option == 1 || option == 2)
                     {
-                        game.selectGameOption(option);
+                        game.SelectGameOption(option);
                     }
 
                     if (option == 3)
