@@ -226,6 +226,10 @@ namespace diceGameNew.src.diceGame
                     }
 
                     Console.WriteLine("");
+                    Console.WriteLine(finalTable.Rows[0][1] + " is the WINNER!!!");
+
+                    Console.WriteLine("");
+
                 }
                 else
                 {
