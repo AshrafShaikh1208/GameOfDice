@@ -1,29 +1,30 @@
 ﻿using System;
 namespace diceGameNew.src.diceGame
 {
-    public class player
+    public class Player
     {
-        private String name;
+        private String Name;
         private int totalScore;
         private bool resultDisplayed = false;
         private int rank;
 
-        public player(String name)
+        public Player(String name)
         {
-            this.name = name;
+            this.Name = name;
         }
 
-        public String getName()
+        public String GetName()
         {
-            return name;
+            return Name;
+
         }
 
-        public int getTotalScore()
+        public int GetTotalScore()
         {
             return totalScore;
         }
 
-        public void setTotalScore(int score)
+        public void SetTotalScore(int score)
         {
             totalScore += score;
         }

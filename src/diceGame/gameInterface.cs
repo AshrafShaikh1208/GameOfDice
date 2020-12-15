@@ -1,7 +1,7 @@
 ﻿using System;
 namespace diceGameNew.src.diceGame
 {
-    public interface gameInterface
+    public interface IGameInterface
     {
         void DisplayGameMenue();
 
@@ -11,7 +11,7 @@ namespace diceGameNew.src.diceGame
 
         void StartNewGame();
 
-        void PlayOneRound(player player, out int roll);
+        void PlayOneRound(Player player, out int roll);
 
         void WhoIsLeading();
 

@@ -1,11 +1,11 @@
 ﻿using System;
 namespace diceGameNew.src.diceGame
 {
-    public class dice
+    public class Dice
     {
         private static int numberOfSides = 6;
 
-        public int roll()
+        public int Roll()
         {
             int result = 0;
             try
