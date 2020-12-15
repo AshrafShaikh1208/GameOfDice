@@ -1,9 +1,9 @@
 ﻿using System;
 namespace diceGameNew.src.diceGame
 {
-    public class worker
+    public class Worker
     {
-        public worker()
+        public Worker()
         {
         }
 
@@ -11,7 +11,7 @@ namespace diceGameNew.src.diceGame
         {
             try
             {
-                game game = new game();
+                Game game = new Game();
                 Console.Clear();
 
                 while (true)
@@ -20,7 +20,7 @@ namespace diceGameNew.src.diceGame
                     string optionSelected = Console.ReadLine();
 
                     int option;
-                    bool parseSucess = checkInputInteger(optionSelected, out option);
+                    bool parseSucess = CheckInputInteger(optionSelected, out option);
 
                     // Check if the input is correct
                     while (option > 3 || option <= 0)
@@ -29,7 +29,7 @@ namespace diceGameNew.src.diceGame
                         Console.WriteLine("Option entered invalid, please enter a number from 1 to 3: ");
                         game.DisplayGameMenue();
                         optionSelected = Console.ReadLine();
-                        parseSucess = checkInputInteger(optionSelected, out option);
+                        parseSucess = CheckInputInteger(optionSelected, out option);
                     }
 
                     if (option == 1 || option == 2)
@@ -49,18 +49,18 @@ namespace diceGameNew.src.diceGame
         }
 
         // Check integer input
-        public static Boolean checkInputInteger(string input, out int option)
+        public static Boolean CheckInputInteger(string input, out int option)
         {
             option = 0;
             try
             {
                 var vinput = input;
                 bool parseSucess = int.TryParse(vinput, out option);
-                game game = new game();
+                Game game = new Game();
 
                 while (!parseSucess)
                 {
-                    Console.WriteLine("Option entered invalid, please enter a number from 1 to 3: ");
+                    Console.WriteLine("Option entered invalid, please enter valid input.");
                     vinput = Console.ReadLine();
                     parseSucess = int.TryParse(vinput, out option);
                 }
@@ -72,7 +72,7 @@ namespace diceGameNew.src.diceGame
         }
 
         // Check string input
-        public static Boolean checkInputString(string input, out string option)
+        public static Boolean CheckInputString(string input, out string option)
         {
             option = "";
             try
@@ -80,18 +80,20 @@ namespace diceGameNew.src.diceGame
                 var vinput = input;
                 int intOption;
                 bool parseSucess = int.TryParse(vinput, out intOption);
-                game game = new game();
+                Game game = new Game();
 
                 while (parseSucess)
                 {
-                    Console.WriteLine("press ‘r’ to roll the dice");
+                    Console.WriteLine("Option entered invalid, press ‘r’ to roll the dice");
                     vinput = Console.ReadLine();
                     parseSucess = int.TryParse(vinput, out intOption);
-                    if (!parseSucess && vinput != "r")
+                    if (!parseSucess && (vinput != "r" || vinput == ""))
                     {
                         parseSucess = true;
                     }
                 }
+
+
 
                 option = input;
                 return true;
