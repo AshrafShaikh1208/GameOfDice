@@ -22,6 +22,7 @@ namespace diceGameNew.src.diceGame
             Console.Clear();
         }
 
+        // Function to display hame menue
         public void DisplayGameMenue() 
         {
             
@@ -32,6 +33,7 @@ namespace diceGameNew.src.diceGame
             Console.WriteLine("Choose an option: ");
         }
 
+        // Function to display game instruction
         public void DisplayGameInstruction()
         {
             Console.WriteLine("");
@@ -41,6 +43,7 @@ namespace diceGameNew.src.diceGame
 
         }
 
+        // Function to select the game option
         public void SelectGameOption(int optionSelected)
         {
             switch (optionSelected)
@@ -53,10 +56,10 @@ namespace diceGameNew.src.diceGame
                     break;
                 default:
                     break;
-
             }
         }
 
+        // Function to start new game
         public void StartNewGame()
         {
             try
@@ -81,6 +84,7 @@ namespace diceGameNew.src.diceGame
                 input = Console.ReadLine();
                 parseSucess = worker.checkInputInteger(input, out scoreToWin);
 
+                // Generate random numer to decide who plays first
                 Random randomNumberGenerator = new Random();
                 int result = randomNumberGenerator.Next(numberOfPlayers) + 1;
 
@@ -96,7 +100,6 @@ namespace diceGameNew.src.diceGame
                     string strPlayer = "Player-" + result.ToString();
                     index = objPlayers.IndexOf(objPlayers.Where(p => p.getName() == strPlayer).FirstOrDefault());
                     bool allowRoll = true;
-
 
                     // check for skipping the roll if the user has rolled 1 consecutively times
                     if (checkForFoul.ContainsKey(objPlayers[index].getName()) && checkForFoul[objPlayers[index].getName()] == 2)
@@ -133,6 +136,7 @@ namespace diceGameNew.src.diceGame
                         CheckIfAnyoneHasWon(index);
                         WhoIsLeading();
 
+                        // Check to give use one more roll if he scores 6
                         while (rollScore == 6)
                         {
                             Console.WriteLine(objPlayers[index].getName() + " you won one more chance to roll (press ‘r’ to roll the dice again)");
@@ -141,6 +145,7 @@ namespace diceGameNew.src.diceGame
                             WhoIsLeading();
                         }
 
+                        // Check if user has rolled 1 teice consicatively
                         if (rollScore == 1)
                         {
                             int intFoulCheck = checkForFoul[strPlayer];
@@ -167,6 +172,7 @@ namespace diceGameNew.src.diceGame
             { Console.WriteLine("Error!!! " + ex.ToString()); }
         }
 
+        // Function to roll the dice
         public void PlayOneRound(player player, out int roll)
         {
             int diceRoll = dice.roll();
@@ -175,6 +181,7 @@ namespace diceGameNew.src.diceGame
             {
                 int totalScore = player.getTotalScore();
 
+                // Check if the total is greater the score to win
                 if ((totalScore + diceRoll) > scoreToWin)
                 {
                     Console.WriteLine(player.getName() + " scored " + diceRoll + ". Require " + (scoreToWin - totalScore) + " score to win");
@@ -189,6 +196,7 @@ namespace diceGameNew.src.diceGame
             { Console.WriteLine("Error!!! " + ex.ToString()); }
         }
 
+        // Function to create rank table
         public void WhoIsLeading()
         {
             string str = "";
@@ -292,7 +300,7 @@ namespace diceGameNew.src.diceGame
             { Console.WriteLine("Error!!! " + ex.ToString()); }
         }
 
-
+        // Function to check who won
         public void CheckIfAnyoneHasWon(int index)
         {
             try
