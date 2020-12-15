@@ -60,7 +60,7 @@ namespace diceGameNew.src.diceGame
 
                 while (!parseSucess)
                 {
-                    Console.WriteLine("Option entered invalid, please enter a number from more then 1 ");
+                    Console.WriteLine("Option entered invalid, please enter a number from 1 to 3: ");
                     vinput = Console.ReadLine();
                     parseSucess = int.TryParse(vinput, out option);
                 }

@@ -117,7 +117,7 @@ namespace diceGameNew.src.diceGame
 
                         if (Result.Count == objPlayers.Count)
                         {
-                            Console.WriteLine("Game Ends");
+                            Console.WriteLine("*** Game Ends ***");
                             break;
                         }
 
@@ -139,7 +139,9 @@ namespace diceGameNew.src.diceGame
                         // Check to give use one more roll if he scores 6
                         while (rollScore == 6)
                         {
-                            Console.WriteLine(objPlayers[index].getName() + " you won one more chance to roll (press ‘r’ to roll the dice again)");
+                            Console.WriteLine(objPlayers[index].getName() + " you won one more chance to roll as you scored 6 (press ‘r’ to roll the dice again)");
+                            input = Console.ReadLine();
+                            worker.checkInputString(input, out input);
                             PlayOneRound(objPlayers[index], out rollScore);
                             CheckIfAnyoneHasWon(index);
                             WhoIsLeading();
