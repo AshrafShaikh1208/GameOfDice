@@ -6,7 +6,12 @@ namespace diceGameNew
     {
         static void Main(string[] args)
         {
-            diceGameNew.src.diceGame.worker.DoWork();
+            try
+            {
+                diceGameNew.src.diceGame.worker.DoWork();
+            }
+            catch(Exception ex)
+            { Console.WriteLine("Error " + ex.ToString()); }
         }
     }
 }

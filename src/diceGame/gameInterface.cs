@@ -16,7 +16,5 @@ namespace diceGameNew.src.diceGame
         void WhoIsLeading();
 
         void CheckIfAnyoneHasWon(int index);
-
-       
     }
 }
