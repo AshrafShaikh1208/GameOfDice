@@ -22,7 +22,7 @@ namespace diceGameNew.src.diceGame
             Console.Clear();
         }
 
-        public void displayGameMenue() 
+        public void DisplayGameMenue() 
         {
             
             Console.WriteLine("");
@@ -32,7 +32,7 @@ namespace diceGameNew.src.diceGame
             Console.WriteLine("Choose an option: ");
         }
 
-        public void displayGameInstruction()
+        public void DisplayGameInstruction()
         {
             Console.WriteLine("");
             Console.WriteLine("All players roll a dice once per turn in round-robin fashion");
@@ -41,15 +41,15 @@ namespace diceGameNew.src.diceGame
 
         }
 
-        public void selectGameOption(int optionSelected)
+        public void SelectGameOption(int optionSelected)
         {
             switch (optionSelected)
             {
                 case 1:
-                    this.startNewGame();
+                    this.StartNewGame();
                     break;
                 case 2:
-                    this.displayGameInstruction();
+                    this.DisplayGameInstruction();
                     break;
                 default:
                     break;
@@ -57,7 +57,7 @@ namespace diceGameNew.src.diceGame
             }
         }
 
-        public void startNewGame()
+        public void StartNewGame()
         {
             try
             {
@@ -129,16 +129,16 @@ namespace diceGameNew.src.diceGame
                         worker.checkInputString(input, out input);
 
                         int rollScore;
-                        playOneRound(objPlayers[index], out rollScore);
-                        checkIfAnyoneHasWon(index);
-                        whoIsLeading();
+                        PlayOneRound(objPlayers[index], out rollScore);
+                        CheckIfAnyoneHasWon(index);
+                        WhoIsLeading();
 
                         while (rollScore == 6)
                         {
                             Console.WriteLine(objPlayers[index].getName() + " you won one more chance to roll (press ‘r’ to roll the dice again)");
-                            playOneRound(objPlayers[index], out rollScore);
-                            checkIfAnyoneHasWon(index);
-                            whoIsLeading();
+                            PlayOneRound(objPlayers[index], out rollScore);
+                            CheckIfAnyoneHasWon(index);
+                            WhoIsLeading();
                         }
 
                         if (rollScore == 1)
@@ -167,7 +167,7 @@ namespace diceGameNew.src.diceGame
             { Console.WriteLine("Error!!! " + ex.ToString()); }
         }
 
-        public void playOneRound(player player, out int roll)
+        public void PlayOneRound(player player, out int roll)
         {
             int diceRoll = dice.roll();
             roll = diceRoll;
@@ -189,7 +189,7 @@ namespace diceGameNew.src.diceGame
             { Console.WriteLine("Error!!! " + ex.ToString()); }
         }
 
-        public void whoIsLeading()
+        public void WhoIsLeading()
         {
             string str = "";
             try
@@ -289,7 +289,7 @@ namespace diceGameNew.src.diceGame
         }
 
 
-        public void checkIfAnyoneHasWon(int index)
+        public void CheckIfAnyoneHasWon(int index)
         {
             try
             {
